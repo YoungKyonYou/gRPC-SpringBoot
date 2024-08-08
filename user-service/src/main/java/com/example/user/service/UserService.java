@@ -1,6 +1,7 @@
 package com.example.user.service;
 
 
+import com.example.user.service.handler.StockTradeRequestHandler;
 import com.example.user.service.handler.UserInformationRequestHandler;
 import com.youyk.user.*;
 import io.grpc.stub.StreamObserver;
@@ -21,6 +22,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
 public class UserService extends UserServiceGrpc.UserServiceImplBase {
     private final UserInformationRequestHandler userRequestHandler;
+    private final StockTradeRequestHandler tradeRequestHandler;
     @Override
     public void getUserInformation(UserInformationRequest request, StreamObserver<UserInformation> responseObserver) {
         UserInformation userInformation = this.userRequestHandler.getUserInformation(request);
@@ -30,6 +32,11 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void tradeStock(StockTradeRequest request, StreamObserver<StockTradeResponse> responseObserver) {
+        StockTradeResponse response = TradeAction.SELL.equals(request.getAction()) ?
+                this.tradeRequestHandler.sellStock(request) :
+                this.tradeRequestHandler.buyStock(request);
 
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

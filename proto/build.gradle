@@ -19,29 +19,22 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "io.grpc:grpc-netty-shaded:$grpcVersion"
-    implementation "io.grpc:grpc-protobuf:$grpcVersion"
-    // Jackson lib for a performance test
-    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-    // necessary for Java 9+
-    implementation "org.apache.tomcat:annotations-api:$tomcatAnnotationsVersion"
+    implementation 'io.grpc:grpc-protobuf:1.60.0'
+    implementation 'io.grpc:grpc-stub:1.60.0'
+    implementation 'org.apache.tomcat:annotations-api:6.0.53'
 }
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${protocVersion}"
-    }
-    clean {
-        delete generatedFilesBaseDir
+        artifact = "com.google.protobuf:protoc:3.24.0"
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.60.0'
         }
     }
     generateProtoTasks {
         all()*.plugins {
-            grpc{}
+            grpc {}
         }
     }
 }
