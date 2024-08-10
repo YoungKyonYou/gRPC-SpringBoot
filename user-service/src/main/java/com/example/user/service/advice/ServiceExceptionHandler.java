@@ -23,6 +23,6 @@ public class ServiceExceptionHandler {
 
     @GrpcExceptionHandler({InsufficientBalanceException.class, InsufficientSharesException.class})
     public Status handlePreconditionFailures(Exception e){
-        return Status.NOT_FOUND.withDescription(e.getMessage());
+        return Status.FAILED_PRECONDITION.withDescription(e.getMessage());
     }
 }

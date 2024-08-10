@@ -1,30 +1,20 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.3.2'
-    id 'io.spring.dependency-management' version '1.1.6'
-}
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
 bootJar.enabled = false
 
-jar.enabled = true
-repositories {
-    mavenCentral()
-}
 
 dependencies {
+    implementation project(path: ':proto')
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+
+// https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java-util
+    implementation group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.25.3'
+
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}

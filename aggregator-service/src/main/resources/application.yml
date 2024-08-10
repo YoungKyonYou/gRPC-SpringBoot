@@ -1,0 +1,19 @@
+
+grpc:
+  client:
+    #user-service
+    user-service:
+      #static://은 gRPC 클라이언트 설정에서 사용되는 접두사입니다.
+      #이 접두사는 클라이언트가 서버의 주소를 고정적으로 사용하도록 지정합니다.
+      #즉, static://localhost:6565는 클라이언트가 localhost의 6565 포트에 위치한 서버에 연결하도록 지정합니다.
+      #이 설정은 서버의 주소가 변경되지 않는 경우, 즉 서버의 위치가 고정적인 경우에 사용됩니다.
+      address: static://localhost:6565
+      #negotiation-type: 이는 클라이언트와 서버 간의 통신 방식을 지정합니다.
+      #PLAINTEXT는 암호화되지 않은 텍스트 형식의 통신을 의미합니다.
+      #이는 개발 환경에서 주로 사용되며, 실제 운영 환경에서는 보안을 위해 TLS와 같은 암호화 통신 방식을 사용하는 것이 일반적입니다.
+      negotiation-type: PLAINTEXT
+    #stock-service
+    stock-service:
+      address: static://localhost:7575
+      negotiation-type: PLAINTEXT
+
